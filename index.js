@@ -9,7 +9,7 @@ const viberMessage = require('./functions/viberMessage');
 const bot = new ViberBot({
     authToken: "4e1523bd2527d7fe-aca763d2f53b468e-babfba2d4e53f5f9",
     name: "Aaron Chatbot",
-    avatar: "https://viber-bot-aaron.herokuapp.com/logo"
+    avatar: "http://viber.com/avatar.jpg"
 });
 
 app.listen(process.env.PORT || 3000, () => {
@@ -17,10 +17,6 @@ app.listen(process.env.PORT || 3000, () => {
 })
 
 app.use('/viber', bot.middleware());
-
-app.get('/logo', (req,res)=>{
-    res.status(200).sendFile('./img/chatbot.jpg');
-});
 
 app.get('/', (req,res)=>{
     res.status(200).send('Server is running');
