@@ -68,18 +68,18 @@ const convoStart = async(context, name) => {
 
 const messageHandler = async(message = {}, type = '') => {
     try {
-        message.text = message.text.toLowerCase();
-        console.log(message)
+        let text = message.text.toLowerCase();
+        console.log(text)
         console.log(type)
         let resp = ''; let trackingData = '';
         if(type == 'text'){
-            if(message.trackingData[0]){
-                switch(message.trackingData[0]) {
+            if(Object.keys(message.trackingData).length > 0){
+                switch(message.trackingData) {
                     case '':
                         break;
                 }
             } else {
-                switch(message.text) {
+                switch(text) {
                     case 'home':
                     case 'hi':
                     case 'hello':
