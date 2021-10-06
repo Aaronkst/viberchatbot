@@ -94,7 +94,7 @@ const messageHandler = async(message = {}, type = '') => {
         let text = message.text.toLowerCase();
         let resp = ''; let trackingData = '';
         if(type == 'text'){
-            if(Object.keys(message.trackingData).length > 0){
+            if(Object.keys(message.trackingData).length > 0 && message.trackingData[0].stage){
                 switch(message.trackingData[0].stage) {
                     case 'guessedrng':
                         let attempt = message.trackingData[0].quiz
