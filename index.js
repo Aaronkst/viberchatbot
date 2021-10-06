@@ -7,7 +7,7 @@ const app = express();
 const viberMessage = require('./functions/viberMessage');
 
 const bot = new ViberBot({
-    authToken: "4e1523bd2527d7fe-aca763d2f53b468e-babfba2d4e53f5f9",
+    authToken: process.env.VIBERTOKEN,
     name: "Aaron Chatbot",
     avatar: "http://viber.com/avatar.jpg"
 });
@@ -18,12 +18,32 @@ app.listen(process.env.PORT || 3000, () => {
 
 app.use('/viber', bot.middleware());
 
+//Placeholder status
 app.get('/', (req,res)=>{
     res.status(200).send('Server is running');
 });
 
-bot.on(BotEvents.CONVERSATION_STARTED, (userProfile, isSubscribed, context, onFinish) => {
-    console.log(userProfile);
-    console.log(context);
-    //let message = viberMessage.convoStart(context, userProfile.userProfile.name);
+//Get Started
+bot.on(BotEvents.CONVERSATION_STARTED, async (userProfile, isSubscribed, context, onFinish) => {
+    try{
+        console.log(userProfile);
+        console.log(context);
+        //let message = viberMessage.convoStart(context, userProfile.name);
+        //let send = await bot.sendMessage(userProfile, new TextMessage(message), 'TrackingData');
+        //return send;
+    } catch (err) {
+        console.log(err);
+        return;
+    } 
 });
+
+//Conversation
+bot.on(BotEvents.MESSAGE_RECEIVED, async (message, response) => {
+    try {
+        //let message = viberMessage.messageHandler(message);
+    } catch (err) {
+        //optional logging and error tracking
+        console.log(err);
+        return;
+    }
+})
