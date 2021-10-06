@@ -2,8 +2,11 @@ const TextMessage = require('viber-bot').Message.Text;
 
 const messageConstructor = async(obj = {}) => {
     try {
-        if(!obj.text) throw 'Invalid Text';
         let message = [];
+        if(!obj.text) {
+            message.push(new TextMessage('Internal Error, Intended message not loaded'));
+            return message;
+        }
         message.push(new TextMessage(obj.text))
         if(obj.richmedia){
             let carousel = {
@@ -69,8 +72,6 @@ const convoStart = async(context, name) => {
 const messageHandler = async(message = {}, type = '') => {
     try {
         let text = message.text.toLowerCase();
-        console.log(text)
-        console.log(type)
         let resp = ''; let trackingData = '';
         if(type == 'text'){
             if(Object.keys(message.trackingData).length > 0){
@@ -85,7 +86,7 @@ const messageHandler = async(message = {}, type = '') => {
                     case 'hello':
                         //home message here
                         resp = {
-                            message: 'What would you like to do?',
+                            text: 'What would you like to do?',
                             richmedia: true,
                             richmediaPayload: [
                                 {
