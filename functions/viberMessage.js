@@ -1,4 +1,5 @@
 const TextMessage = require('viber-bot').Message.Text;
+const RichMediaMessage = require('viber-bot').Message.RichMedia;
 
 const messageConstructor = async(obj = {}) => {
     try {
@@ -9,14 +10,12 @@ const messageConstructor = async(obj = {}) => {
         }
         message.push(new TextMessage(obj.text))
         if(obj.richmedia){
-            console.log(obj.richmediaPayload)
             let carousel = {
                 "ButtonsGroupColumns": 6,
                 "ButtonsGroupRows": 6,
                 "BgColor": "#FFFFFF",
                 "Buttons": []
             }
-            console.log(carousel)
             obj.richmediaPayload.forEach( item => {
                 carousel.Buttons.push({
                     "ActionBody": item.actionBody,
@@ -42,7 +41,6 @@ const messageConstructor = async(obj = {}) => {
                     "Columns": 6
                 })                    
             })
-            console.log(carousel)
             message.push(new RichMediaMessage(carousel))
         }
         return message;
