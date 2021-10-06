@@ -45,9 +45,13 @@ bot.on(BotEvents.CONVERSATION_STARTED, async (userProfile, isSubscribed, context
 
 //Conversation
 bot.on(BotEvents.MESSAGE_RECEIVED, async (message, response) => {
-    console.log(message);
     try {
-        let resp = viberMessage.messageHandler(message);
+        console.log(message);
+        let type;
+        if(message.text) type = 'text';
+        if(message.contactPhoneNumber) type = 'contact';
+        if(message.latitude) type = 'location';
+        let resp = viberMessage.messageHandler(message, type);
         let send = await bot.sendMessage(response.userProfile, resp.message, resp.trackingData || null); 
         console.log(send)       
     } catch (err) {

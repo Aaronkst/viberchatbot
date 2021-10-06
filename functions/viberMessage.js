@@ -46,25 +46,31 @@ const messageConstructor = async(obj = {}) => {
 }
 
 const convoStart = async(context, name) => {
-    let message = { message: '', trackingData: 'Some stuff' };
-    switch(context){
-        case 'portfolio':
-            message.message = await messageConstructor({
-                text: `Hello ${name}, hope you enjoyed my portfolio! This is my sample chatbot, feel free to test around`
-            });
-            break;
-        default:
-            message.message = await messageConstructor({
-                text: `Hello ${name}! Welcome to Aaron's Chatbot, feel free to test around`
-            });
-            break;
-    };
-    return message;
+    try{
+        let message = { message: '', trackingData: 'Some stuff' };
+        switch(context){
+            case 'portfolio':
+                message.message = await messageConstructor({
+                    text: `Hello ${name}, hope you enjoyed my portfolio! This is my sample chatbot, feel free to test around`
+                });
+                break;
+            default:
+                message.message = await messageConstructor({
+                    text: `Hello ${name}! Welcome to Aaron's Chatbot, feel free to test around`
+                });
+                break;
+        };
+        return message;
+    } catch (error) {
+        throw error;
+    }
 }
 
 const messageHandler = async(message = {}, type = '') => {
     try {
         message.text = message.text.toLowerCase();
+        console.log(message)
+        console.log(type)
         let resp = ''; let trackingData = '';
         if(type == 'text'){
             if(message.trackingData[0]){
