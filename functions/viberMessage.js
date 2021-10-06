@@ -113,7 +113,7 @@ const messageHandler = async(message = {}, type = '') => {
                         //rngGame prompt
                         let rng = rng();
                         resp = {
-                            text: 'Guess the missing number:' + rng.quiz;
+                            text: 'Guess the missing number:' + rng.quiz
                         }
                         trackingData = rng.answer;
                         break;
