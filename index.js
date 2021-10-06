@@ -52,7 +52,7 @@ bot.on(BotEvents.MESSAGE_RECEIVED, async (message, response) => {
         if(message.contactPhoneNumber) type = 'contact';
         if(message.latitude) type = 'location';
         let resp = await viberMessage.messageHandler(message, type);
-        await bot.sendMessage(response.userProfile, resp.message, resp.trackingData || null);
+        await bot.sendMessage(response.userProfile, resp.message, [resp.trackingData]);
         return;
     } catch (err) {
         //optional logging and error tracking
