@@ -17,11 +17,16 @@ app.listen(process.env.PORT || 3000, () => {
 })
 
 app.post('/setWebhook', async(req,res)=>{
-    if(req.headers.auth === process.env.APIKEY) {
-        let webhook = await bot.setWebhook(process.env.URL)
-        return res.status(200).send(webhook);
-    } else {
-        return res.status(500).send('Unauthorized');
+    try {
+        if(req.headers.auth === process.env.APIKEY) {
+            let webhook = await bot.setWebhook(process.env.URL)
+            return res.status(200).send(webhook);
+        } else {
+            return res.status(500).send('Unauthorized');
+        }
+    } catch (err) {
+        console.log(err)
+        return res.status(500).send(err)
     }
 });
 
