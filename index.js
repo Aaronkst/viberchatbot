@@ -12,10 +12,6 @@ const bot = new ViberBot({
     avatar: "http://viber.com/avatar.jpg"
 });
 
-app.listen(process.env.PORT || 3000, () => {
-    console.log('running');
-})
-
 app.use('/viber', bot.middleware());
 
 //Placeholder status
@@ -46,4 +42,9 @@ bot.on(BotEvents.MESSAGE_RECEIVED, async (message, response) => {
         console.log(err);
         return;
     }
-})
+});
+
+app.listen(process.env.PORT || 3000, async () => {
+    let webhook = await bot.setWebhook(`https://viber-bot-aaron.herokuapp.com/viber`)
+    console.log(webhook);
+});
