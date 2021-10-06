@@ -16,19 +16,7 @@ app.listen(process.env.PORT || 3000, () => {
     console.log('running');
 })
 
-app.post('/setWebhook', async(req,res)=>{
-    try {
-        if(req.headers.auth === process.env.APIKEY) {
-            let webhook = await bot.setWebhook(process.env.URL)
-            return res.status(200).send(webhook);
-        } else {
-            return res.status(500).send('Unauthorized');
-        }
-    } catch (err) {
-        console.log(err)
-        return res.status(500).send(err)
-    }
-});
+app.use('/viber', bot.middleware());
 
 app.get('/logo', (req,res)=>{
     res.status(200).sendFile('./img/chatbot.jpg');
