@@ -40,6 +40,7 @@ const messageConstructor = async(obj = {}) => {
             })
             message.push(new RichMediaMessage(carousel))
         }
+        return message;
     } catch (err) {
         throw err;
     }
