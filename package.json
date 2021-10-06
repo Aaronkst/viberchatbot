@@ -1,0 +1,24 @@
+{
+  "name": "viberchatbot",
+  "version": "1.0.0",
+  "description": "Simple Viber Chatbot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aaronkst/viberchatbot.git"
+  },
+  "author": "Khant Si Thu @ Aaron",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Aaronkst/viberchatbot/issues"
+  },
+  "homepage": "https://github.com/Aaronkst/viberchatbot#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "viber-bot": "^1.0.18"
+  }
+}
