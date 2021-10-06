@@ -35,7 +35,7 @@ app.post('/setwebhook', express.json({ limit: '50mb' }), express.urlencoded({ ex
 bot.on(BotEvents.CONVERSATION_STARTED, async (userProfile, isSubscribed, context, onFinish) => {
     try{
         let message = await viberMessage.convoStart(context, userProfile.userProfile.name);
-        let send = await bot.sendMessage(userProfile.userProfile, message.message, message.trackingData || null);
+        let send = await bot.sendMessage(userProfile.userProfile, message.message, [message.trackingData]);
         return send;
     } catch (err) {
         console.log(err);
