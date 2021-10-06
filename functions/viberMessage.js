@@ -1,5 +1,6 @@
 const TextMessage = require('viber-bot').Message.Text;
 const RichMediaMessage = require('viber-bot').Message.RichMedia;
+const KeyboardMessage = require('viber-bot').Message.Keyboard;
 const { rng } = require('./rng');
 
 const messageConstructor = async(obj = {}) => {
@@ -60,6 +61,7 @@ const messageConstructor = async(obj = {}) => {
                     "Text": `<font color="#FFFFFF">${item.button}</font>`
                 })
             })
+            message.push(new KeyboardMessage(keyboard))
         }
         return message;
     } catch (err) {
