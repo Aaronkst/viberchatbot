@@ -1,6 +1,6 @@
 const TextMessage = require('viber-bot').Message.Text;
 const RichMediaMessage = require('viber-bot').Message.RichMedia;
-const rng = require('./rng');
+const { rng } = require('./rng');
 
 const messageConstructor = async(obj = {}) => {
     try {
@@ -111,11 +111,11 @@ const messageHandler = async(message = {}, type = '') => {
                         break;
                     case 'rnggame':
                         //rngGame prompt
-                        let rng = rng();
+                        let a = rng();
                         resp = {
-                            text: 'Guess the missing number:' + rng.quiz
+                            text: 'Guess the missing number:' + a.quiz
                         }
-                        trackingData = rng.answer;
+                        trackingData = a.answer;
                         break;
                 }
             }
