@@ -1,6 +1,7 @@
 const TextMessage = require('viber-bot').Message.Text;
 const RichMediaMessage = require('viber-bot').Message.RichMedia;
 const KeyboardMessage = require('viber-bot').Message.Keyboard;
+const UrlMessage = require('viber-bot').Message.Url;
 const { rng } = require('./rng');
 
 const messageConstructor = async(obj = {}) => {
@@ -11,6 +12,7 @@ const messageConstructor = async(obj = {}) => {
             return message;
         }
         message.push(new TextMessage(obj.text))
+        if(obj.url) message.push(new UrlMessage(obj.url))
         if(obj.richmedia){
             let carousel = {
                 "ButtonsGroupColumns": 6,
@@ -150,6 +152,12 @@ const messageHandler = async(message = {}, type = '') => {
                             text: 'Guess the missing (*) number: ' + a.quiz
                         }
                         trackingData = { stage: 'guessedrng', answer: a.answer, quiz: a.quiz};
+                        break;
+                    case 'contactme':
+                        resp =  {
+                            text: 'Please visit the following link for additional contact information',
+                            url: 'https://khantsithu.netlify.app/#contactme'
+                        }
                         break;
                 }
             }
