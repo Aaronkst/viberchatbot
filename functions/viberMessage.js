@@ -28,7 +28,7 @@ const messageConstructor = async(obj = {}) => {
                 carousel.Buttons.push({
                     "ActionBody": item.actionBody,
                     "ActionType": "none",
-                    "Text": `<p><b>${item.title}</b></p><p>${item.description}</p>`,
+                    "Text": `<b>${item.title}</b><br>${item.description}`,
                     "Rows": 2,
                     "Columns": 6
                 })
@@ -36,7 +36,7 @@ const messageConstructor = async(obj = {}) => {
                     "ActionBody": item.actionBody,
                     "ActionType": "reply",
                     "BgColor": "#da2828",
-                    "Text": `<p color="#FFFFFF">${item.button}</p>`,
+                    "Text": `<font color="#FFFFFF">${item.button}</font>`,
                     "Rows": 1,
                     "Columns": 6
                 })                    
