@@ -1,5 +1,4 @@
 const TextMessage = require('viber-bot').Message.Text;
-const path = require('path')
 
 const messageConstructor = async(obj = {}) => {
     try {
@@ -47,14 +46,14 @@ const messageConstructor = async(obj = {}) => {
 }
 
 const convoStart = async(context, name) => {
-    let message = { message: '' };
+    let message = { message: '', trackingData: 'Some stuff' };
     switch(context){
         case 'portfolio':
             message.message = await messageConstructor({
                 text: `Hello ${name}, hope you enjoyed my portfolio! This is my sample chatbot, feel free to test around`
             });
             break;
-        case '':
+        default:
             message.message = await messageConstructor({
                 text: `Hello ${name}! Welcome to Aaron's Chatbot, feel free to test around`
             });
@@ -65,6 +64,7 @@ const convoStart = async(context, name) => {
 
 const messageHandler = async(message = {}, type = '') => {
     try {
+        message.text = message.text.toLowerCase();
         let resp = ''; let trackingData = '';
         if(type == 'text'){
             if(message.trackingData[0]){
@@ -74,7 +74,9 @@ const messageHandler = async(message = {}, type = '') => {
                 }
             } else {
                 switch(message.text) {
-                    case 'Home':
+                    case 'home':
+                    case 'hi':
+                    case 'hello':
                         //home message here
                         resp = {
                             message: 'What would you like to do?',
@@ -82,14 +84,14 @@ const messageHandler = async(message = {}, type = '') => {
                             richmediaPayload: [
                                 {
                                     actionBody: 'rngGame',
-                                    image: path.join(__dirname, 'dice.jpg'),
+                                    image: "https://viber-bot-aaron.herokuapp.com/dice.jpg",
                                     title: 'RNG Game',
                                     description: 'Guess the random number',
                                     button: 'Play'
                                 },
                                 {
                                     actionBody: 'contactMe',
-                                    image: path.join(__dirname, 'dice.jpg'),
+                                    image: "https://viber-bot-aaron.herokuapp.com/chatbot.jpg",
                                     title: 'Contact Me',
                                     description: 'Contact me for more details',
                                     button: 'Get contact info'
