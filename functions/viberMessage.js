@@ -45,6 +45,7 @@ const messageConstructor = async(obj = {}) => {
         }
         return message;
     } catch (err) {
+        console.log(err);
         throw err;
     }
 }
