@@ -44,6 +44,23 @@ const messageConstructor = async(obj = {}) => {
             })
             message.push(new RichMediaMessage(carousel))
         }
+        if(obj.keyboard){
+            let keyboard = {
+                "Type": "keyboard",
+                "Revision": 1,
+                "Buttons": []
+            }
+            obj.keyboardPayload.forEach( item => {
+                keyboard.Buttons.push({
+                    "Columns": item.column,
+                    "Rows": item.row,
+                    "BgColor": "#da2828",
+                    "ActionType": item.type,
+                    "ActionBody": item.actionBody,
+                    "Text": `<font color="#FFFFFF">${item.button}</font>`
+                })
+            })
+        }
         return message;
     } catch (err) {
         console.log(err);
@@ -78,8 +95,23 @@ const messageHandler = async(message = {}, type = '') => {
         let resp = ''; let trackingData = '';
         if(type == 'text'){
             if(Object.keys(message.trackingData).length > 0){
-                switch(message.trackingData) {
-                    case '':
+                switch(message.trackingData[0].stage) {
+                    case 'guessedrng':
+                        let attempt = message.trackingData[0].quiz
+                        if(text.length > 1) attempt = text;
+                        else attempt = attempt.replace('*',text);
+                        let response = message.trackingData[0].answer == attempt ? 'Congratulations you guessed the correct number! It is: ' : 'Sorry, your guess is off.. The correct answer is: '
+                        resp = {
+                            text: response+message.trackingData[0].answer,
+                            keyboard: true,
+                            keyboardPayload: [{
+                                actionBody: 'rnggame',
+                                button: 'Play Again',
+                                type: 'reply',
+                                column: 6,
+                                row: 1
+                            }]
+                        }
                         break;
                 }
             } else {
@@ -113,9 +145,9 @@ const messageHandler = async(message = {}, type = '') => {
                         //rngGame prompt
                         let a = rng();
                         resp = {
-                            text: 'Guess the missing number:' + a.quiz
+                            text: 'Guess the missing (*) number: ' + a.quiz
                         }
-                        trackingData = a.answer;
+                        trackingData = { stage: 'guessedrng', answer: a.answer, quiz: a.quiz};
                         break;
                 }
             }
