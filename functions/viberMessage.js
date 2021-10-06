@@ -109,7 +109,7 @@ const messageHandler = async(message = {}, type = '') => {
                             ]
                         }
                         break;
-                    case 'rngGame':
+                    case 'rnggame':
                         //rngGame prompt
                         let rng = rng();
                         resp = {
