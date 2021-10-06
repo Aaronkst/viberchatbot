@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Aaronkst/viberchatbot#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "path": "^0.12.7",
     "viber-bot": "^1.0.18"
   }
 }
